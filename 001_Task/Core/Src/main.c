@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
 /* USER CODE END Includes */
@@ -99,6 +100,10 @@ int main(void)
 
   status = xTaskCreate(task2_handler, "Task2", 200, "Hello world from Task-2", 2, &task2_handle);
   configASSERT(status == pdPASS);
+
+  // Start the FreeRTOS scheduler
+  vTaskStartScheduler();
+  // We will never return unless there is insufficient memory in the heap.
 
   /* USER CODE END 2 */
 
@@ -208,12 +213,18 @@ static void MX_GPIO_Init(void)
 
 static void task1_handler(void* params)
 {
-
+  while (1)
+  {
+    printf("%s\n",(char *)params);
+  }
 }
 
 static void task2_handler(void* params)
 {
-
+  while (1)
+  {
+    printf("%s\n",(char *)params);
+  }
 }
 
 /* USER CODE END 4 */
